@@ -1,0 +1,21 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  namespace: default
+  name: licensing-tls-certificate
+spec:
+  secretName: licensing-tls-secret
+  duration: 2160h  # expires in 90 days
+  renewBefore: 360h # 10 days before expiry
+  issuerRef:
+    name: selfsigned-ca
+    kind: ClusterIssuer
+  commonName: licensing.com
+  dnsNames:
+    - licensing.com
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth  # for server authentication over TLS
+    - client auth  # For mTLS
+
