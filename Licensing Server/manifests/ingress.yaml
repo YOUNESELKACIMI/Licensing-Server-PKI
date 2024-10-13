@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nodejs-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  #- host: example.com # Replace this with your domain or external IP
+   - http:
+      paths:
+      - path: /login
+        pathType: Prefix
+        backend:
+          service:
+            name: licensing-server-svc
+            port: 
+              number: 8081
+      - path: /signup
+        pathType: Prefix
+        backend:
+          service:
+            name: licensing-server-svc
+            port: 
+              number: 8081
+      - path: /enclave
+        pathType: Prefix
+        backend:
+          service:
+            name: enclave-svc
+            port: 
+              number: 8082

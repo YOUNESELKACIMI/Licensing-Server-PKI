@@ -1,0 +1,14 @@
+# role-binding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: licensing-server-role-binding
+  namespace: default  # Change to your namespace if needed
+subjects:
+  - kind: ServiceAccount
+    name: licensing-server-sa
+    namespace: default  # Change to your namespace if needed
+roleRef:
+  kind: Role
+  name: enclave-creator
+  apiGroup: rbac.authorization.k8s.io

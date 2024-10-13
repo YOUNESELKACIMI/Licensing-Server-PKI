@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: licensing-server-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: licensing-server
+  template:
+    metadata:
+      labels:
+        app: licensing-server
+    spec:
+      serviceAccountName: licensing-server-sa  
+      containers:
+      - image: younes0204/client-operations:latest
+        name: client-operations
+        env:
+          - name: PORT
+            value: "8081"
+        ports:
+        - containerPort: 8081
+      - image: younes0204/server-operations:latest
+        name: server-operations
+        env:
+          - name: DATABASE_URL
+            value: "postgres://postgres:postgres@postgres:5432/mydatabase"
+        ports:
+        - containerPort: 50051
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: licensing-server-svc
+spec:
+  type: ClusterIP # Change to ClusterIP if you want internal access only
+  ports:
+  - port: 8081
+    targetPort: 8081
+  selector:
+    app: licensing-server
