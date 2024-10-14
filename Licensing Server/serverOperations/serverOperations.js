@@ -42,7 +42,7 @@ authenticate = async (call,callback) =>{
     const foundUser = await User.findOne({username,password})
     console.log("founduser = ", foundUser)
     if(foundUser && foundUser.password==password){
-        //const token = jwt.sign({username},process.env.JWT_SECRET_KEY,{ expiresIn: '1h' })
+        const token = jwt.sign({username},process.env.JWT_SECRET_KEY,{ expiresIn: '1h' })
         const enclaveName = await provisionEnclave(username)
         //console.log(`/${enclaveName}`)
         callback(null,{
@@ -50,13 +50,13 @@ authenticate = async (call,callback) =>{
             message: "Authentication successful",
             enclaveName: enclaveName,
             accessPoint: `/${enclaveName}`,
-            //token:token,
+            token:token,
         })
     } else {
         callback(null,{
             success: false,
             message: "Invalid credentials",
-            //token:"",
+            token:"",
         })
     }
 }

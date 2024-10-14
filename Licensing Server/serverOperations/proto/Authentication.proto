@@ -27,5 +27,5 @@ message AuthResponse {
     string message = 2;
     string enclaveName = 3;
     string accessPoint = 4;
-    //string token = 3;
+    string token = 5;
 }

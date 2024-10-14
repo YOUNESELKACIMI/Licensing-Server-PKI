@@ -13,9 +13,18 @@ const tls = {
 }
 
 app.get('/enclave',async (req,res)=>{
+  const {username} = call.request
+  const authorization = req.headers('Authorization')
+  const token = authorization.replace("Bearer ","")
+  const decoded = jwt.verify(token,process.env.JWT_SECRET_KEY)
+  if(!decoded){
     res.status(200).json({
       message:"Authentication successful, Enclave Provisioned, TPM Quote and TLS Certificate Verified",
     })
+  }
+  else{
+    res.status(400).json({error:"Not Authorized"})
+  }
 })
 
 const server = http.createServer(tls,app)

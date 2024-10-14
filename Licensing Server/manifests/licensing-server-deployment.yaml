@@ -30,6 +30,11 @@ spec:
         env:
           - name: DATABASE_URL
             value: "postgres://postgres:postgres@postgres:5432/mydatabase"
+          - name: JWT_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: JWT_SECRET_KEY
         ports:
           - containerPort: 50051
       volumes:

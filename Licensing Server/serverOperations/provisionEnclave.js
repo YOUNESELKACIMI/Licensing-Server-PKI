@@ -23,6 +23,17 @@ async function provisionEnclave(username) {
         {
           name: 'enclave-container',
           image: 'younes0204/enclave-container', 
+          env:[
+            {
+              name: "JWT_SECRET_KEY",
+              valueFrom:{
+                secretKeyRef:{
+                  name: "jwt-secret",
+                  key: "JWT_SECRET_KEY"
+                }
+              }
+            }
+          ],
           ports: [
             {
               containerPort: 8082,  
