@@ -28,8 +28,23 @@ async function provisionEnclave(username) {
               containerPort: 8082,  
             },
           ],
+          volumeMounts: [
+            {
+              mountPath: "/etc/tls",
+              name: "enclave-tls",
+              readOnly: true,
+            }
+          ]
         },
       ],
+      volumes: [
+        {
+          name: "enclave-tls",
+          secret: {
+            secretName: "enclave-tls"
+          }
+        }
+      ]
     },
   };
 

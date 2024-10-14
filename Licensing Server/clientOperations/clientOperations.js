@@ -2,9 +2,17 @@ require('dotenv').config()
 const grpc = require('@grpc/grpc-js')
 const protoLoader = require('@grpc/proto-loader')
 const path = require('path')
+const fs = require('fs')
+const http = require('http')
 const express = require('express')
 const app = express()
 app.use(express.json())
+
+const tls = {
+    key: fs.readFileSync("/etc/tls/tls.key"),
+    cert: fs.readFileSync("/etc/tls/tls.crt"),
+    ca: fs.readFileSync("/etc/tls/ca.crt")
+}
 
 const PROTO_PATH = path.join(__dirname, 'proto', 'Authentication.proto');
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {});
@@ -43,9 +51,10 @@ app.post('/signup',(req,res)=>{
     })
 })
 
+const server = http.createServer(tls,app)
 
 const PORT = process.env.PORT || 8081
-app.listen(PORT,()=>{
+server.listen(PORT,()=>{
     console.log(`client is listening on ${PORT}`)
 })
 

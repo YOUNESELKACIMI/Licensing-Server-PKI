@@ -20,21 +20,29 @@ spec:
           - name: PORT
             value: "8081"
         ports:
-        - containerPort: 8081
+          - containerPort: 8081
+        volumeMounts:
+          - mountPath: "/etc/tls"
+            name: licensing-server-tls
+            readOnly: true
       - image: younes0204/server-operations:latest
         name: server-operations
         env:
           - name: DATABASE_URL
             value: "postgres://postgres:postgres@postgres:5432/mydatabase"
         ports:
-        - containerPort: 50051
+          - containerPort: 50051
+      volumes:
+        - name: licensing-server-tls
+          secret:
+            secretName:  licensing-server-tls
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: licensing-server-svc
 spec:
-  type: ClusterIP # Change to ClusterIP if you want internal access only
+  type: ClusterIP 
   ports:
   - port: 8081
     targetPort: 8081

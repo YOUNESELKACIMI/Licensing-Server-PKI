@@ -1,12 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nodejs-ingress
+  name: licensing-server-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  tls:
+    - hosts:
+        - licensing-server-svc.default.svc
+      secretName: licensing-server-tls
   rules:
-  #- host: example.com # Replace this with your domain or external IP
    - http:
       paths:
       - path: /login
