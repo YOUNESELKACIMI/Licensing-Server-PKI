@@ -46,7 +46,7 @@ Additionally, the **Licensing Server** must include the enclave's TLS certificat
 
 ### **1.4 High-Level Solution Architecture**
 
-![sequence.png](sequence.png)
+![sequence.png](/Readme_imgs/sequence.png)
 
 ### **Step 1: Client Authentication**
 
@@ -76,7 +76,7 @@ Additionally, the **Licensing Server** must include the enclave's TLS certificat
 
 ### **1.5 Kubernetes Deployment and Infrastructure**
 
-![Architecture.png](Architecture.png)
+![Architecture.png](/Readme_imgs/Architecture.png)
 
 ### **Licensing Server**:
 
@@ -120,7 +120,7 @@ Additionally, the **Licensing Server** must include the enclave's TLS certificat
 
 ### **2.1 Implementation in kubernetes**
 
-![Ressources Architecture.png](Ressources_Architecture.png)
+![Ressources Architecture.png](/Readme_imgs/Ressources_Architecture.png)
 
 the Licensing Server is split into two containers, each handling distinct operations within the same pod. This setup facilitates separation of concerns, improves security, and scales appropriately in a Kubernetes environment. Each part of the system is containerized and integrated into the Kubernetes architecture, using **gRPC** and **RESTful APIs** for communication.
 
