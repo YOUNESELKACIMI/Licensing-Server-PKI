@@ -2,6 +2,7 @@ require('dotenv').config()
 const grpc = require('@grpc/grpc-js')
 const protoLoader = require('@grpc/proto-loader')
 const jwt  = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
 const path = require('path')
 const provisionEnclave = require('./provisionEnclave')
 const User = require('./models/user')
@@ -35,36 +36,45 @@ enclaveLaunch = async (call,callback) => {
 */
 
 
-authenticate = async (call,callback) =>{
-    const {username,password} = call.request
-    console.log("username = ",username)
-    console.log("password = ",password)
-    const foundUser = await User.findOne({username,password})
-    console.log("founduser = ", foundUser)
-    if(foundUser && foundUser.password==password){
-        const token = jwt.sign({username},process.env.JWT_SECRET_KEY,{ expiresIn: '1h' })
-        const enclaveName = await provisionEnclave(username)
-        //console.log(`/${enclaveName}`)
-        callback(null,{
-            success: true,
-            message: "Authentication successful",
-            enclaveName: enclaveName,
-            accessPoint: `/${enclaveName}`,
-            token:token,
-        })
+authenticate = async (call, callback) => {
+    const { username, password } = call.request;
+
+    const foundUser = await User.findOne({ username });
+
+    if (foundUser) {
+        const match = await bcrypt.compare(password, foundUser.password);
+        
+        if (match) {
+            const token = jwt.sign({ username }, process.env.JWT_SECRET_KEY, { expiresIn: '1h' });
+            const enclaveName = await provisionEnclave(username);
+            callback(null, {
+                success: true,
+                message: "Authentication successful",
+                enclaveName: enclaveName,
+                accessPoint: `/${enclaveName}`,
+                token: token,
+            });
+        } else {
+            callback(null, {
+                success: false,
+                message: "Invalid credentials",
+                token: "",
+            });
+        }
     } else {
-        callback(null,{
+        callback(null, {
             success: false,
             message: "Invalid credentials",
-            token:"",
-        })
+            token: "",
+        });
     }
 }
 
 
 signup = async (call,callback) =>{
     const {username,password} = call.request
-    const savedUser = await User.create({username,password})
+    const hashedPassword = await bcrypt.hash(password, 10); 
+    const savedUser = await User.create({ username, password: hashedPassword });
     if(savedUser){
         callback(null,{
             success:true,
