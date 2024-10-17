@@ -258,26 +258,26 @@ kubectl apply -f '.\Cert-Manager\manifests\'
 kubectl apply -f '.\Licensing Server\manifests\.'
 ```
 
-![image.png](image.png)
+![image.png](/Readme_imgs/image.png)
 
 ## Using postman
 
 ### Signup
 
-![image.png](image%201.png)
+![image.png](/Readme_imgs/image%201.png)
 
-![image.png](image%202.png)
+![image.png](/Readme_imgs/image%202.png)
 
 ### login
 
-![image.png](image%203.png)
+![image.png](/Readme_imgs/image%203.png)
 
-![image.png](076169b0-bfec-47aa-8f9b-bac7572f9f23.png)
+![image.png](/Readme_imgs/076169b0-bfec-47aa-8f9b-bac7572f9f23.png)
 
 ### enclave
 
-![image.png](image%204.png)
+![image.png](/Readme_imgs/image%204.png)
 
-![image.png](image%205.png)
+![image.png](/Readme_imgs/image%205.png)
 
-![image.png](image%206.png)
+![image.png](/Readme_imgs/image%206.png)
