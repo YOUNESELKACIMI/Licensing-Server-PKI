@@ -245,3 +245,39 @@ With this  architecture, several security enhancements and considerations are ap
 - Kubernetes Secrets: https://kubernetes.io/docs/concepts/configuration/secret/
 - TPM Attestation: https://trustedcomputinggroup.org/developer/resources/
 </aside>
+
+# How to run the project
+
+```yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.crds.yaml
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+kubectl apply -f '.\Cert-Manager\manifests\'
+```
+
+```yaml
+kubectl apply -f '.\Licensing Server\manifests\.'
+```
+
+![image.png](image.png)
+
+## Using postman
+
+### Signup
+
+![image.png](image%201.png)
+
+![image.png](image%202.png)
+
+### login
+
+![image.png](image%203.png)
+
+![image.png](076169b0-bfec-47aa-8f9b-bac7572f9f23.png)
+
+### enclave
+
+![image.png](image%204.png)
+
+![image.png](image%205.png)
+
+![image.png](image%206.png)
