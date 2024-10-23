@@ -1,4 +1,4 @@
-# Licensing Server: Safeguarding User Authentication and Enclave Creation
+# Designing a Secure Licensing Server for User Authentication and Enclave Provisioning in Kubernetes
 
 # **Part 1: Defining an Architecture for Secure Licensing Server and Enclave Authentication**
 
